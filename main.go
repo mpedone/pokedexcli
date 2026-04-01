@@ -18,6 +18,26 @@ func main() {
 			description: "Displays a help message",
 			callback: 	 commandHelp,
 		},
+		"explain": {
+			name: 		 "explain",
+			description: "Explains what this is",
+			callback:    commandExplain,
+		},
+		"map": {
+			name: 		 "map forward",
+			description: "List next 20 locations",
+			callback:    commandMap,
+		},
+		"mapb": {
+			name: 		 "map back",
+			description: "List previous 20 locations",
+			callback:    commandMapb,
+		},
+	}
+
+	links := config{
+		next: "https://pokeapi.co/api/v2/location-area/",
+		prev: "",
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -33,7 +53,7 @@ func main() {
 		if !ok {
 			fmt.Println("Unknown command")
 		} else {
-			command.callback()
+			command.callback(&links)
 			if word == "help" {
 				for _, desc := range registry {
 				    fmt.Printf("%s: %s\n", desc.name, desc.description)
