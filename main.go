@@ -46,6 +46,9 @@ func main() {
 		scanner.Scan()
 		text := scanner.Text()
 		clean := cleanInput(text)
+		if len(clean) == 0 {
+            continue
+        }
 		word := clean[0]
 		// fmt.Printf("Your command was %s\n", registry[word].name)
 
@@ -53,7 +56,10 @@ func main() {
 		if !ok {
 			fmt.Println("Unknown command")
 		} else {
-			command.callback(&links)
+			err := command.callback(&links)
+            if err != nil {
+                fmt.Println(err)
+            }
 			if word == "help" {
 				for _, desc := range registry {
 				    fmt.Printf("%s: %s\n", desc.name, desc.description)
