@@ -23,7 +23,6 @@ func startRepl() {
             continue
         }
 		word := clean[0]
-		// fmt.Printf("Your command was %s\n", registry[word].name)
         links := config{
 		next: "https://pokeapi.co/api/v2/location-area/",
 		prev: "",
@@ -38,12 +37,6 @@ func startRepl() {
             if err != nil {
                 fmt.Println(err)
             }
-			// if word == "help" {
-			// 	for _, desc := range registry {
-			// 	    fmt.Printf("%s: %s\n", desc.name, desc.description)
-			// 	}
-			// 	fmt.Println("")
-			// }
 		}
 	}
 }
