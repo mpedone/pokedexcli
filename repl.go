@@ -103,30 +103,6 @@ func cleanInput(text string) []string {
 	return strings.Split(strings.ToLower(strings.Trim(text, " ")), " ")
 }
 
-func commandExit(links *config) error {
-    fmt.Println("Closing the Pokedex... Goodbye!")
-    os.Exit(0)
-    return nil
-}
-
-func commandHelp(links *config) error {
-    fmt.Println("")
-    fmt.Println("Welcome to the Pokedex!")
-    fmt.Println("Usage:")
-    for _, cmd := range getCommands() {
-        fmt.Printf("%s: %s\n", cmd.name, cmd.description)
-    }
-    fmt.Println("")
-    return nil
-} 
-
-func commandExplain(links *config) error {
-    fmt.Println("")
-    fmt.Println("A Pokedex is an index of Pokemon (nevermind what a Pokemon is). This is a CLI-tool to create/access a Pokedex.")
-    fmt.Println("")
-    return nil
-}
-
 func commandMap(links *config) error {
     
     fmt.Printf("next: %s, prev: %s\n", links.next, links.prev)
