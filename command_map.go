@@ -9,7 +9,7 @@ func commandMap(links *config) error {
 	// if links.next == nil
 	// create NewCache
 	// else just send the existing cache
-	locations, err := links.pokeClient.ListLocations(links.next, &links.pokeCache)
+	locations, err := links.pokeClient.ListLocations(links.next)
 	if err != nil {
 		return err
 	}
@@ -30,7 +30,7 @@ func commandMapb(links *config) error {
 	}
 
 	// cache.get(links.prev)
-	locations, err := links.pokeClient.ListLocations(links.prev, &links.pokeCache)
+	locations, err := links.pokeClient.ListLocations(links.prev)
 	if err != nil {
 		return err
 	}

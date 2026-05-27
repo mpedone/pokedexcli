@@ -4,11 +4,9 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-
-	"github.com/mpedone/pokedexcli/internal/pokecache"
 )
 
-func (c *Client) ListLocations(pageUrl *string, locCache *pokecache.Cache) (respLocations, error) {
+func (c *Client) ListLocations(pageUrl *string) (respLocations, error) {
 	url := baseURL + "/location-area"
 
 	if pageUrl != nil {
@@ -17,7 +15,7 @@ func (c *Client) ListLocations(pageUrl *string, locCache *pokecache.Cache) (resp
 
 	data := []byte{}
 
-	entry, ok := locCache.Get(url)
+	entry, ok := c.Cache.Get(url)
 
 	if !ok {
 		req, err := http.NewRequest("GET", url, nil)
@@ -37,7 +35,7 @@ func (c *Client) ListLocations(pageUrl *string, locCache *pokecache.Cache) (resp
 		if err != nil {
 			return respLocations{}, err
 		}
-		locCache.Add(url, data)
+		c.Cache.Add(url, data)
 	} else {
 		data = entry
 	}
