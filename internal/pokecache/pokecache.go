@@ -20,9 +20,7 @@ func NewCache(interval time.Duration) Cache {
 		entry: map[string]cacheEntry{},
 		mu:    &sync.Mutex{},
 	}
-	// newCache.Add(key, value)
 
-	// interval := time.Duration(2) * time.Second
 	go newCache.reapLoop(interval)
 
 	return newCache
@@ -46,7 +44,6 @@ func (c *Cache) Get(key string) ([]byte, bool) {
 
 func (c *Cache) reapLoop(interval time.Duration) {
 	ticker := time.NewTicker(interval)
-	// defer ticker.Stop()
 	for range ticker.C {
 		c.reap(c.entry, interval)
 	}

@@ -21,8 +21,6 @@ func (c *Client) ListLocations(pageUrl *string) (respLocations, error) {
 		req, err := http.NewRequest("GET", url, nil)
 		if err != nil {
 			return respLocations{}, err
-			// log.Fatal(err)
-			// return condition, fmt.Errorf("NewRequest err: %w\n", err)
 		}
 
 		res, err := c.HttpClient.Do(req)
@@ -39,10 +37,6 @@ func (c *Client) ListLocations(pageUrl *string) (respLocations, error) {
 	} else {
 		data = entry
 	}
-
-	// Add to the cache
-	// map[string]newCache = {time.Now(), data}
-	// key = pageURl
 
 	locations := respLocations{}
 

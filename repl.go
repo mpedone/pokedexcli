@@ -21,10 +21,6 @@ func startRepl(links *config) {
 			continue
 		}
 		word := clean[0]
-		/* links := &config{
-			next: "https://pokeapi.co/api/v2/location-area/",
-			prev: "",
-		} */
 
 		command, ok := getCommands()[word]
 		if !ok {
