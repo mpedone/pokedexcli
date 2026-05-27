@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/mpedone/pokedexcli/internal/pokeapi"
+	"github.com/mpedone/pokedexcli/internal/pokecache"
 	// "reflect"
 )
 
@@ -77,6 +78,7 @@ func getCommands() map[string]cliCommand {
 
 type config struct {
 	pokeClient pokeapi.Client
+	pokeCache  pokecache.Cache
 	next       *string
 	prev       *string
 }

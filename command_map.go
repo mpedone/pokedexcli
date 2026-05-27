@@ -6,7 +6,10 @@ import (
 )
 
 func commandMap(links *config) error {
-	locations, err := links.pokeClient.ListLocations(links.next)
+	// if links.next == nil
+	// create NewCache
+	// else just send the existing cache
+	locations, err := links.pokeClient.ListLocations(links.next, &links.pokeCache)
 	if err != nil {
 		return err
 	}
@@ -26,7 +29,8 @@ func commandMapb(links *config) error {
 		return errors.New("you're on the first page")
 	}
 
-	locations, err := links.pokeClient.ListLocations(links.prev)
+	// cache.get(links.prev)
+	locations, err := links.pokeClient.ListLocations(links.prev, &links.pokeCache)
 	if err != nil {
 		return err
 	}
