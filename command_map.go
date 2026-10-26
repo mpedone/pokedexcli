@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func commandMap(links *config) error {
+func commandMap(links *config, args ...string) error {
 	locations, err := links.pokeClient.ListLocations(links.next)
 	if err != nil {
 		return err
@@ -15,13 +15,13 @@ func commandMap(links *config) error {
 	links.prev = locations.Previous
 
 	for _, loc := range locations.Results {
-		fmt.Println(loc)
+		fmt.Println(loc.Name)
 	}
 
 	return nil
 }
 
-func commandMapb(links *config) error {
+func commandMapb(links *config, args ...string) error {
 	if links.prev == nil {
 		return errors.New("you're on the first page")
 	}
@@ -35,7 +35,7 @@ func commandMapb(links *config) error {
 	links.prev = locations.Previous
 
 	for _, loc := range locations.Results {
-		fmt.Println(loc)
+		fmt.Println(loc.Name)
 	}
 
 	return nil

@@ -21,13 +21,17 @@ func startRepl(links *config) {
 			continue
 		}
 		word := clean[0]
+		args := []string{}
+		if len(clean) > 1 {
+			args = clean[1:]
+		}
 
 		command, ok := getCommands()[word]
 		if !ok {
 			fmt.Println("Unknown command")
 			continue
 		} else {
-			err := command.callback(links)
+			err := command.callback(links, args...)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -38,7 +42,7 @@ func startRepl(links *config) {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config) error
+	callback    func(*config, ...string) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -68,6 +72,11 @@ func getCommands() map[string]cliCommand {
 			description: "List previous 20 locations",
 			callback:    commandMapb,
 		},
+		"explore": {
+			name:        "explore <location_name>",
+			description: "List pokemon in a given location",
+			callback:    commandExplore,
+		},
 	}
 }
 
@@ -75,6 +84,7 @@ type config struct {
 	pokeClient pokeapi.Client
 	next       *string
 	prev       *string
+	location   *string
 }
 
 func cleanInput(text string) []string {

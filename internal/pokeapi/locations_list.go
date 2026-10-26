@@ -13,7 +13,7 @@ func (c *Client) ListLocations(pageUrl *string) (respLocations, error) {
 		url = *pageUrl
 	}
 
-	entry, ok := c.Cache.Get(url)
+	entry, ok := c.cache.Get(url)
 
 	if !ok {
 		req, err := http.NewRequest("GET", url, nil)
@@ -21,7 +21,7 @@ func (c *Client) ListLocations(pageUrl *string) (respLocations, error) {
 			return respLocations{}, err
 		}
 
-		res, err := c.HttpClient.Do(req)
+		res, err := c.httpClient.Do(req)
 		if err != nil {
 			return respLocations{}, err
 		}
@@ -37,7 +37,7 @@ func (c *Client) ListLocations(pageUrl *string) (respLocations, error) {
 		if err != nil {
 			return locations, err
 		}
-		c.Cache.Add(url, data)
+		c.cache.Add(url, data)
 		return locations, nil
 	}
 
