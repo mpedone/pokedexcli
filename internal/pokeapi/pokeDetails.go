@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+var Pokedex map[string]PokeDeets = make(map[string]PokeDeets)
+
 func (c *Client) PokeDetails(name string) (PokeDeets, error) {
 	url := baseURL + "/pokemon/" + name
 

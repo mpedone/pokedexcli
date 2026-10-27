@@ -7,7 +7,7 @@ import (
 )
 
 func (c *Client) ListPokemon(location string) (Location, error) {
-	url := baseURL + "/location-area" + "/" + location
+	url := baseURL + "/location-area/" + location
 
 	if entry, ok := c.cache.Get(url); ok {
 		pokeResp := Location{}
@@ -15,6 +15,7 @@ func (c *Client) ListPokemon(location string) (Location, error) {
 		if err != nil {
 			return Location{}, err
 		}
+		return pokeResp, nil
 	}
 
 	req, err := http.NewRequest("GET", url, nil)
@@ -33,20 +34,11 @@ func (c *Client) ListPokemon(location string) (Location, error) {
 		return Location{}, err
 	}
 
-	pokemons := Location{}
-	err = json.Unmarshal(data, &pokemons)
+	pokeResp := Location{}
+	err = json.Unmarshal(data, &pokeResp)
 	if err != nil {
-		return pokemons, err
+		return pokeResp, err
 	}
 	c.cache.Add(url, data)
-	return pokemons, nil
-
-	/* pokemons := Location{}
-
-	err := json.Unmarshal(entry, &pokemons)
-	if err != nil {
-		return pokemons, err
-	}
-
-	return pokemons, nil */
+	return pokeResp, nil
 }
