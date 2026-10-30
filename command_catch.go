@@ -30,15 +30,15 @@ func catch(links *config, args ...string) error {
 		return err
 	}
 
-	fmt.Printf("Throwing a ball at %s...\n", name)
+	fmt.Printf("Throwing a Pokeball at %s...\n", name)
 
 	exp := pDeets.BaseExperience
 	target := int(((25 * math.Log(float64(exp))) - 65) * 0.2)
 	roll := rand.IntN(20)
 
 	fmt.Printf(" > Base exp: %v\n", pDeets.BaseExperience)
-	fmt.Printf(" > Target: %v\n", target)
-	fmt.Printf(" > Roll: %v\n", roll)
+	fmt.Printf(" > Target: %v\n", target+1)
+	fmt.Printf(" > Roll: %v\n", roll+1)
 
 	if roll >= target {
 		fmt.Printf("%s caught!\n", name)
